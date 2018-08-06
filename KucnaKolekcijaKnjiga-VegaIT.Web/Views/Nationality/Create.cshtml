@@ -1,0 +1,32 @@
+﻿@model KucnaKolekcijaKnjiga_VegaIT.Web.Models.PageViewModels.NationalitySinglePageViewModel
+
+@{
+    ViewBag.Title = "Nacionalnost - kreiranje";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Kreiranje nacionalnosti</h2>
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Nacionalnost:</h4>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.NationalityViewModel.Nationality, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.NationalityViewModel.Nationality, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.NationalityViewModel.Nationality, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Kreiraj" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,35 @@
+﻿@model KucnaKolekcijaKnjiga_VegaIT.Web.Models.PageViewModels.GenreListPageViewModel
+
+@{
+    ViewBag.Title = "Žanr - početna";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Žanrovi</h2>
+<hr />
+
+<p>
+    @Html.RouteLink("Kreiraj novi žanr", new { action = "Create", controller = "Genre" }, new { @class = "btn btn-default" })
+</p>
+
+<table class="table table-striped col-md-12">
+    <thead>
+        <tr>
+            <th class="col-md-10">Naziv žanra</th>
+            <th class="col-md-2">Opcije</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var genre in Model.GenreViewModels)
+        {
+            <tr>
+                <td>@genre.Genre</td>
+                <td>
+                    <a href="@Url.Action("Edit", "Genre", new { id = genre.GenreId })" class="btn btn-primary-table btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a href="@Url.Action("Delete", "Genre", new { id = genre.GenreId })" class="btn btn-primary-table btn-xs" onclick="return confirm('Da li ste sigurni da želite da obrišete odabrani žanr?')"><span class="glyphicon glyphicon-trash"></span></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

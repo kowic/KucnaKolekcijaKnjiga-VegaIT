@@ -1,0 +1,63 @@
+﻿@model KucnaKolekcijaKnjiga_VegaIT.Web.Models.PageViewModels.BookListPageViewModel
+
+@{
+    ViewBag.Title = "Knjiga - početna";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Knjige</h2>
+<hr />
+<div class="form-group form-inline">
+    @using (Html.BeginForm("Index", "Book", null, FormMethod.Post, new { @class = "form-horizontal form-inline col-md-4 col-md-offset-2" }))
+    {
+        @Html.TextBoxFor(model => model.BookSearchViewModel.TitleSearch, null, new { @class = "form-control", placeholder = "Naslov" })
+        <button type="submit" class="btn btn-default">
+            <span class="glyphicon glyphicon-search"></span>
+        </button>
+    }
+
+    @using (Html.BeginForm("Index", "Book", null, FormMethod.Post, new { @class = "form-horizontal form-inline" }))
+    {
+        @Html.TextBoxFor(model => model.BookSearchViewModel.ISBNSearch, null, new { @class = "form-control", placeholder = "ISBN" })
+        <button type="submit" class="btn btn-default">
+            <span class="glyphicon glyphicon-search"></span>
+        </button>
+    }
+</div>
+@using (Html.BeginForm("Index", "Book", null, FormMethod.Post, new { @class = "form-horizontal form-inline col-md-offset-1" }))
+{
+        @Html.DropDownListFor(model => model.BookSearchViewModel.AuthorSearch, new SelectList(Model.AuthorList, "AuthorId", "Name"), new { @class = "form-control" })
+        @Html.DropDownListFor(model => model.BookSearchViewModel.LanguageSearch, new SelectList(Model.LanguageList, "LanguageId", "Language"), new { @class = "form-control" })
+        @Html.DropDownListFor(model => model.BookSearchViewModel.GenreSearch, new SelectList(Model.GenreList, "GenreId", "Genre"), new { @class = "form-control" })
+        <button type="submit" class="btn btn-info">Filter</button>
+}
+<hr />
+
+<p>
+    @Html.RouteLink("Kreiraj novu knjigu", new { action = "Create", controller = "Book" }, new { @class = "btn btn-default" })
+</p>
+
+<table class="table table-striped col-md-12">
+    <thead>
+        <tr>
+            <th class="col-md-6">Naziv</th>
+            <th class="col-md-4">ISBN</th>
+            <th class="col-md-2">Opcije</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model.BookViewModels)
+        {
+            <tr>
+                <td>@book.Title</td>
+                <td>@book.ISBN</td>
+                <td>
+                    <a href="@Url.Action("Details", "Book", new { id = book.BookId })" class="btn btn-primary-table btn-xs"><span class="glyphicon glyphicon-book"></span></a>
+                    <a href="@Url.Action("Edit", "Book", new { id = book.BookId })" class="btn btn-primary-table btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a href="@Url.Action("Delete", "Book", new { id = book.BookId })" class="btn btn-primary-table btn-xs" onclick="return confirm('Da li ste sigurni da želite da obrišete odabranu knjigu?')"><span class="glyphicon glyphicon-trash"></span></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

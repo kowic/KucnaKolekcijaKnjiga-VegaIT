@@ -1,0 +1,35 @@
+﻿@model KucnaKolekcijaKnjiga_VegaIT.Web.Models.PageViewModels.NationalityListPageViewModel
+
+@{
+    ViewBag.Title = "Nacionalnost - početna";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Nacionalnost</h2>
+<hr />
+
+<p>
+    @Html.RouteLink("Kreiraj novu nacionalnost", new { action = "Create", controller = "Nationality" }, new { @class = "btn btn-default" })
+</p>
+
+<table class="table table-striped col-md-12">
+    <thead>
+        <tr>
+            <th class="col-md-10">Naziv nacionalnosti</th>
+            <th class="col-md-2">Opcije</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var nationality in Model.NationalityViewModels)
+        {
+            <tr>
+                <td>@nationality.Nationality</td>
+                <td>
+                    <a href="@Url.Action("Edit", "Nationality", new { id = nationality.NationalityId })" class="btn btn-primary-table btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a href="@Url.Action("Delete", "Nationality", new { id = nationality.NationalityId })" class="btn btn-primary-table btn-xs" onclick="return confirm('Da li ste sigurni da želite da obrišete odabranu nacionalnost?')"><span class="glyphicon glyphicon-trash"></span></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

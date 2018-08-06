@@ -1,0 +1,34 @@
+﻿@model KucnaKolekcijaKnjiga_VegaIT.Web.Models.PageViewModels.LanguageSinglePageViewModel
+
+@{
+    ViewBag.Title = "Jezik - izmena";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Izmena jezika</h2>
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Jezik:</h4>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.LanguageViewModel.LanguageId)
+        <div class="form-group">
+            @Html.LabelFor(model => model.LanguageViewModel.Language, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.LanguageViewModel.Language, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.LanguageViewModel.Language, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Izmeni" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+

@@ -1,0 +1,72 @@
+﻿@model KucnaKolekcijaKnjiga_VegaIT.Web.Models.PageViewModels.BookSinglePageViewModel
+
+@{
+    ViewBag.Title = "Knjiga - izmena";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Izmena knjige</h2>
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Knjiga:</h4>
+        @Html.HiddenFor(model => model.BookViewModel.BookId)
+        <div class="form-group">
+            @Html.LabelFor(model => model.BookViewModel.Title, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.BookViewModel.Title, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BookViewModel.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BookViewModel.ISBN, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.BookViewModel.ISBN, new { @class = "form-control" })
+                @Html.ValidationSummary(true, "Već postoji uneti ISBN", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BookViewModel.Description, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.BookViewModel.Description, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BookViewModel.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BookViewModel.AuthorIds, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.ListBoxFor(model => model.BookViewModel.AuthorIds, new MultiSelectList(Model.AuthorList, "AuthorId", "Name"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BookViewModel.AuthorIds, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BookViewModel.LanguageId, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.BookViewModel.LanguageId, new SelectList(Model.LanguageList, "LanguageId", "Language"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BookViewModel.LanguageId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BookViewModel.GenreId, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.BookViewModel.GenreId, new SelectList(Model.GenreList, "GenreId", "Genre"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BookViewModel.GenreId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Izmeni" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
