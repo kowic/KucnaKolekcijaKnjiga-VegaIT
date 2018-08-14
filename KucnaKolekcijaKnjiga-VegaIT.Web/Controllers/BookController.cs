@@ -38,10 +38,8 @@ namespace KucnaKolekcijaKnjiga_VegaIT.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(BookListPageViewModel model, string titleSearchString, string isbnSearchString)
+        public ActionResult Index(BookListPageViewModel model)
         {
-            model.BookSearchViewModel.TitleSearch = titleSearchString;
-            model.BookSearchViewModel.ISBNSearch = isbnSearchString;
             BookListPageViewModel newModel = new BookListPageViewModel();
             newModel.BookViewModels = _bookService.FindBooks(model.BookSearchViewModel.ConvertToModel()).ConvertToViewModelList();
 
